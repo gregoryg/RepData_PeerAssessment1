@@ -116,12 +116,10 @@ Here is a histogram of the daily total number of steps with imputed missing valu
 
 ```r
 dailyall <- imputed[,list(tot=sum(steps)), by=date]
-hist(dailyall$tot, main="Distribution of total steps by date", xlab)
+hist(dailyall$tot, main="Distribution of total steps per day with imputed values", xlab="# steps")
 ```
 
-```
-## Error in hist.default(dailyall$tot, main = "Distribution of total steps by date", : invalid number of 'breaks'
-```
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
 
 ```r
 meanall <- mean(dailyall$tot)

@@ -108,7 +108,7 @@ Here is a histogram of the daily total number of steps with imputed missing valu
 
 ```{r}
 dailyall <- imputed[,list(tot=sum(steps)), by=date]
-hist(dailyall$tot, main="Distribution of total steps by date", xlab)
+hist(dailyall$tot, main="Distribution of total steps per day with imputed values", xlab="# steps")
 meanall <- mean(dailyall$tot)
 medianall <- median(dailyall$tot)
 ```
