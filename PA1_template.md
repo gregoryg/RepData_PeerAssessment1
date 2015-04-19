@@ -57,7 +57,7 @@ Here is a histogram of the daily total number of steps (showing frequency)
 
 
 ```r
-hist(dt$tot)
+hist(dt$tot, main="Distribution of total steps per day", xlab="# daily steps"  )
 ```
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
@@ -73,7 +73,8 @@ df <- data.frame(steps=gort$steps, interval=gort$interval)
 intervaldt <- data.table(df)
 intervaldt <- intervaldt[,list(mean=mean(steps)), by=interval]
 intmax <- intervaldt[intervaldt$mean == max(intervaldt$mean),]
-plot(x=intervaldt$interval, y=intervaldt$mean, type="l")
+plot(x=intervaldt$interval, y=intervaldt$mean, type="l",
+     main="Average steps per 5-minute interval", xlab="interval", ylab="avg # steps")
 ```
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
@@ -115,10 +116,12 @@ Here is a histogram of the daily total number of steps with imputed missing valu
 
 ```r
 dailyall <- imputed[,list(tot=sum(steps)), by=date]
-hist(dailyall$tot)
+hist(dailyall$tot, main="Distribution of total steps by date", xlab)
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
+```
+## Error in hist.default(dailyall$tot, main = "Distribution of total steps by date", : invalid number of 'breaks'
+```
 
 ```r
 meanall <- mean(dailyall$tot)
@@ -155,7 +158,19 @@ plot(x=intervaldt$interval,
 
 ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
 
+## Additional notes
+
+The for loop I use to replace missing values is very slow.  I would like to touch only the rows that have missing values, but did not figure out how to do that before the deadline.  Something as simple as
 
 
+```r
+rslt <- imputed[is.na(imputed$steps),]
+## now how do I get the row numbers of the result and iterate through them?
+```
+
+There should be a functional programming approach to this, but I don't
+know what that would be.
+
+If anyone could point me to a solution I would much appreciate it!
 
 
